@@ -87,24 +87,16 @@ namespace ApiAeropuerto.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public IActionResult Delete(Vuelos vuelo)
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-           
-            if (vuelo == null)
+            var entidad = vuelosRepository.Get(id);
+            if (entidad == null)
             {
-                return BadRequest("Indique el vuelo a eliminar");
-            }
-            else
-            {
-                var entidad = vuelosRepository.Get(vuelo.Id);
-                if (entidad!=null)
-                {
-                    vuelosRepository.Delete(entidad);
-                }
-                
+                return NotFound();
             }
 
+            vuelosRepository.Delete(entidad);
             return Ok();
         }
         private bool Validate(Vuelos vuelo, out List<string> errores)
