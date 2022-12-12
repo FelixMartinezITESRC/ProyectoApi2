@@ -118,9 +118,9 @@ namespace ApiAeropuerto.Controllers
                 errores.Add("Especifique el codigo del vuelo.");
             }
 
-            if (vuelo.Destino.Length > 30)
+            if (vuelo.Destino.Length > 25)
             {
-                errores.Add("El destino tiene como máximo 30 caracteres.");
+                errores.Add("El destino tiene como máximo 25 caracteres.");
             }
 
             if (string.IsNullOrWhiteSpace(vuelo.Destino))
@@ -128,24 +128,23 @@ namespace ApiAeropuerto.Controllers
                 errores.Add("Especifique el destino del vuelo.");
             }
 
-            if (vuelo.CodigoVuelo.Length > 6)
-            {
-                errores.Add("La puerta de salida tiene como máximo 6 caracteres.");
-            }
-
             if (string.IsNullOrWhiteSpace(vuelo.PuertaSalida))
             {
                 errores.Add("Especifique la puerta de salida del vuelo.");
             }
 
-            if (vuelo.HorarioSalida.TimeOfDay < DateTime.Now.TimeOfDay)
+            if (Diferencia(vuelo.HorarioSalida)<30)
             {
-                errores.Add("El horario de salida debe ser por lo menos de" +
-                    "media hora despues de la hora actual.");
+                errores.Add("Se debe planear un vuelo con minimo 30 minutos de anticipacion");
             }
 
-
             return errores.Count == 0;
+        }
+
+        private int Diferencia(DateTime fecha)
+        {
+            TimeSpan dif = fecha - DateTime.Now;
+            return (int)dif.TotalMinutes;
         }
 
     }
