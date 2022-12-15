@@ -133,9 +133,9 @@ namespace ApiAeropuerto.Controllers
                 errores.Add("Especifique la puerta de salida del vuelo.");
             }
 
-            if (Diferencia(vuelo.HorarioSalida)<30)
+            if (vuelo.HorarioSalida<=DateTime.Now.AddMinutes(4))
             {
-                errores.Add("Se debe planear un vuelo con minimo 30 minutos de anticipacion");
+                errores.Add("Se debe planear un vuelo con minimo 4 minutos de anticipacion");
             }
 
             return errores.Count == 0;
@@ -143,8 +143,8 @@ namespace ApiAeropuerto.Controllers
 
         private int Diferencia(DateTime fecha)
         {
-            TimeSpan dif = fecha - DateTime.Now;
-            return (int)dif.TotalMinutes;
+            TimeSpan dif = DateTime.Now.Subtract(fecha);
+            return (int)dif.Minutes;
         }
 
     }
