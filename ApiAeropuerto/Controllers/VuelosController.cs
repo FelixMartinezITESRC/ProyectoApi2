@@ -141,11 +141,5 @@ namespace ApiAeropuerto.Controllers
             return errores.Count == 0;
         }
 
-        private int Diferencia(DateTime fecha)
-        {
-            TimeSpan dif = DateTime.Now.Subtract(fecha);
-            return (int)dif.Minutes;
-        }
-
     }
 }
