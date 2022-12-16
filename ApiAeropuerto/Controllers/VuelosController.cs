@@ -110,7 +110,7 @@ namespace ApiAeropuerto.Controllers
 
             if (vuelo.CodigoVuelo.Length>6)
             {
-                errores.Add("El código tiene como máximo 6 caracteres.");
+                errores.Add("El código tiene como máximo 6 caracteres. ");
             }
 
             if (string.IsNullOrWhiteSpace(vuelo.CodigoVuelo))
